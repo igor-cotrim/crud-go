@@ -31,6 +31,7 @@ func SearchAllProducts() []Product {
 			panic(err.Error())
 		}
 
+		p.Id = id
 		p.Name = name
 		p.Description = description
 		p.Price = price
@@ -54,6 +55,20 @@ func CreateNewProduct(name, description string, price float64, amount int) {
 	}
 
 	insertDataInDatabase.Exec(name, description, price, amount)
+
+	defer db.Close()
+}
+
+func DeleteProduct(id string) {
+	db := db.ConnectDatabase()
+
+	deleteProduct, err := db.Prepare("delete from products where id=$1")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	deleteProduct.Exec(id)
 
 	defer db.Close()
 }
