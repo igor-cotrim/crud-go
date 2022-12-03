@@ -40,7 +40,7 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		models.CreateNewProduct(name, description, convertedPriceToFloat, convertedAmoutToInt)
 	}
 
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func Delete(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +48,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	models.DeleteProduct(productId)
 
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func Edit(w http.ResponseWriter, r *http.Request) {
@@ -85,5 +85,5 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		models.UpdateProduct(convertedIdToInt, name, description, convertedPriceToFloat, convertedAmoutToInt)
 	}
 
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
